@@ -2,6 +2,10 @@ let heroFourArms;
 
 function preload() {
     img = loadImage('./statue.png')
+    img2 = loadImage('./FourArms.png')
+    img3 = loadImage('./FourArms_Jump.png')
+    img4 = loadImage('./FourArms_Crouch.png')
+    img5 = loadImage('./FourArms_Punch.png')
 }
 
 function setup() {
@@ -19,6 +23,7 @@ function draw() {
 
     //boneco
     heroFourArms.display()
+    image(img2, 250, 300, 150, 300)
 
     //bloco / estatua
     image(img, 400, 126, 470, -486)
@@ -26,9 +31,6 @@ function draw() {
     // coberta da estatua
     fill(207, 165, 89)
     rect(500, 600, 250, -450)
-
-
-    // 2 - açoes boneco e bloco partir estatua
 
     //jump
     heroFourArms.jump()
@@ -60,6 +62,4 @@ function mousePressed() {
             heroFourArms.activatepunch()
         }
     }
-
-
 }
