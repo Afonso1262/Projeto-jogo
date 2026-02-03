@@ -1,5 +1,5 @@
 class Hero {
-    constructor(x, y) {
+    constructor(x, y, bonecoInicial) {
         this.x = x;
         this.y = y;
 
@@ -19,19 +19,23 @@ class Hero {
 
         this.jumpinterage = true
         this.crouchinterage = true
+
+        this.boneco = bonecoInicial
     }
 
     display() {
         fill(209, 67, 76)
         rect(this.tempX, this.tempY, this.tempWidth, this.tempTamY)
+        image(this.boneco, this.tempX, this.tempY, this.tempWidth, this.tempTamY)
     }
 
     //jump
 
     jump() {
         if (this.heroJump) {
+            this.boneco = img3
             this.jumpinterage = false
-            if (this.tempY > this.y - 70) {
+            if (this.tempY > this.y - 120) {
                 this.tempY = this.tempY - 6; // quanto maior a subtração mais rápido
             } else {
                 this.heroJump = false
@@ -40,6 +44,7 @@ class Hero {
             this.tempY = this.tempY + 3; // quanto maior a soma mais rápido
         } else {
             this.jumpinterage = true
+            this.boneco = img2
         }
     }
 
@@ -52,6 +57,7 @@ class Hero {
 
     crouch() {
         if (this.heroCrouch) {
+            this.boneco = img4
             this.crouchinterage = false
             if (this.tempY < this.y + 120) {
                 this.tempY = this.tempY + 3.7;
@@ -83,6 +89,7 @@ class Hero {
 
     punch() {
         if (this.heroPunch) {
+            this.boneco = img5
             if (this.tempWidth < 250) {
                 this.tempWidth = this.tempWidth + 6;
             } else {
@@ -126,15 +133,15 @@ class Stone {
     }
 
     display() {
-        fill(207, 165, 89)
+        fill(246, 240, 250)
         rect(500, this.posicaoY, 250, this.tempoY)
     }
 
     destroy() {
         if (this.tempoY < 0) {
             cover = false
+            this.tempoY = this.tempoY + 25;
         }
 
-        this.tempoY = this.tempoY + 3.5;
     }
 }

@@ -15,7 +15,7 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth - 1000, windowHeight - 50)
-    heroFourArms = new Hero(250, 300, 150, 300)
+    heroFourArms = new Hero(250, 300, img2)
     statueStone = new Stone(500, 600, 250, -450)
 }
 
@@ -29,7 +29,7 @@ function draw() {
 
     //boneco
     heroFourArms.display()
-    image(img2, 250, 300, 150, 300)
+    //  image(img2, 250, 300, 150, 300)
 
     // estatua
     image(img, 400, 126, 470, -486)
@@ -51,7 +51,8 @@ function draw() {
     // 3 - enimigos e morte
 
     // 4 - talvez jogo recompensa
-    console.log(interagir)
+
+    //console.log(interagir)
 }
 
 function keyReleased() {
@@ -63,8 +64,8 @@ function keyReleased() {
             heroFourArms.activatecrouch()
         } else if (keyCode === 13) {
             heroFourArms.activatepunch()
+            statueStone.destroy()
         }
-
     }
 }
 
