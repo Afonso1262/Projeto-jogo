@@ -1,4 +1,9 @@
 let heroFourArms;
+let statueStone;
+
+let cover = true;
+
+let interagir = true;
 
 function preload() {
     img = loadImage('./statue.png')
@@ -11,6 +16,7 @@ function preload() {
 function setup() {
     createCanvas(windowWidth - 1000, windowHeight - 50)
     heroFourArms = new Hero(250, 300, 150, 300)
+    statueStone = new Stone(500, 600, 250, -450)
 }
 
 function draw() {
@@ -25,12 +31,13 @@ function draw() {
     heroFourArms.display()
     image(img2, 250, 300, 150, 300)
 
-    //bloco / estatua
+    // estatua
     image(img, 400, 126, 470, -486)
 
     // coberta da estatua
-    fill(207, 165, 89)
-    rect(500, 600, 250, -450)
+    if (cover = true) {
+        statueStone.display()
+    }
 
     //jump
     heroFourArms.jump()
@@ -44,22 +51,27 @@ function draw() {
     // 3 - enimigos e morte
 
     // 4 - talvez jogo recompensa
+    console.log(interagir)
 }
 
-function keyPressed() {
-    if (keyCode === 32) {
-        heroFourArms.activatejump()
-    }
+function keyReleased() {
 
-    if (keyCode === 16) {
-        heroFourArms.activatecrouch()
-    }
-}
-
-function mousePressed() {
-    if (mouseIsPressed === true) {
-        if (mouseButton === LEFT) {
+    if (heroFourArms.jumpinterage == true && heroFourArms.crouchinterage == true) {
+        if (keyCode === 32) {
+            heroFourArms.activatejump()
+        } else if (keyCode === 16) {
+            heroFourArms.activatecrouch()
+        } else if (keyCode === 13) {
             heroFourArms.activatepunch()
         }
+
     }
 }
+
+
+// function mouseReleased() {
+//     if (mouseButton === LEFT) {
+//         heroFourArms.activatepunch()
+//         statueStone.destroy()
+//     }
+// }

@@ -16,6 +16,9 @@ class Hero {
 
         this.width = 150;
         this.tempWidth = this.width;
+
+        this.jumpinterage = true
+        this.crouchinterage = true
     }
 
     display() {
@@ -27,26 +30,29 @@ class Hero {
 
     jump() {
         if (this.heroJump) {
+            this.jumpinterage = false
             if (this.tempY > this.y - 70) {
                 this.tempY = this.tempY - 6; // quanto maior a subtração mais rápido
             } else {
                 this.heroJump = false
             }
-        }
-
-        if (this.heroJump == false && this.tempY < this.y) {
+        } else if (this.heroJump == false && this.tempY < this.y) {
             this.tempY = this.tempY + 3; // quanto maior a soma mais rápido
+        } else {
+            this.jumpinterage = true
         }
     }
 
     activatejump() {
         this.heroJump = true
+        interagir = false
     }
 
     //crouch
 
     crouch() {
         if (this.heroCrouch) {
+            this.crouchinterage = false
             if (this.tempY < this.y + 120) {
                 this.tempY = this.tempY + 3.7;
             } else {
@@ -56,19 +62,20 @@ class Hero {
             if (this.tempTamY > 100) {
                 this.tempTamY = this.tempTamY - 3.5;
             }
-        } else {
-            if (this.tempY > this.y) {
-                this.tempY = this.tempY - 3.7;
-            }
+        } else if (this.heroCrouch == false && this.tempY > this.y) {
+            this.tempY = this.tempY - 3.7;
+        }
 
-            if (this.tempTamY < this.tamY) {
-                this.tempTamY = this.tempTamY + 3.5;
-            }
+        if (this.heroCrouch == false && this.tempTamY < this.tamY) {
+            this.tempTamY = this.tempTamY + 3.5;
+        } else {
+            this.crouchinterage = true
         }
     }
 
     activatecrouch() {
         this.heroCrouch = true
+        interagir = false
     }
 
 
@@ -91,6 +98,7 @@ class Hero {
 
     activatepunch() {
         this.heroPunch = true
+        interagir = false
     }
 }
 
@@ -104,8 +112,29 @@ class Hero {
 // fill(207, 165, 89)
 // rect(500, 600, 250, -450)
 
-// class Block {
-//     constructor(x, y) {
+class Stone {
+    constructor(x, y) {
+        this.x = this.x
+        this.y = this.y
 
-//     }
-// }
+        this.tempoY = -450;
+        this.chunkFall = this.tempoY;
+
+        this.posicaoY = 600;
+
+        this.destroyStone = false;
+    }
+
+    display() {
+        fill(207, 165, 89)
+        rect(500, this.posicaoY, 250, this.tempoY)
+    }
+
+    destroy() {
+        if (this.tempoY < 0) {
+            cover = false
+        }
+
+        this.tempoY = this.tempoY + 3.5;
+    }
+}
