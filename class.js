@@ -91,8 +91,6 @@ class Hero {
 
     activatepunch() {
         this.heroPunch = true
-
-
     }
 }
 
@@ -104,8 +102,8 @@ class Hero {
 
 
 
-class Block {
-    constructor(x, y) {
+// class Block {
+//     constructor(x, y) {
 
-    }
-}
+//     }
+// }
