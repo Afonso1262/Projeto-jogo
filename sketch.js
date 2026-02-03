@@ -1,10 +1,12 @@
-function preload() {
+let heroFourArms;
 
+function preload() {
+    img = loadImage('./statue.png')
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight)
-
+    createCanvas(windowWidth - 1000, windowHeight - 50)
+    heroFourArms = new Hero(250, 300, 150, 300)
 }
 
 function draw() {
@@ -16,21 +18,48 @@ function draw() {
     rect(0, 600, windowWidth, height - 400)
 
     //boneco
-    fill(209, 67, 76)
-    rect(20, 30, 30, 40)
+    heroFourArms.display()
 
-    //bloco
+    //bloco / estatua
+    image(img, 400, 126, 470, -486)
+
+    // coberta da estatua
     fill(207, 165, 89)
-    rect(500, 600, 200, -400)
+    rect(500, 600, 250, -450)
+
 
     // 2 - açoes boneco e bloco partir estatua
+
+    //jump
+    heroFourArms.jump()
+
+    //crouch
+    heroFourArms.crouch()
+
+    //punch
+    heroFourArms.punch()
 
     // 3 - enimigos e morte
 
     // 4 - talvez jogo recompensa
-
 }
 
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight)
+function keyPressed() {
+    if (keyCode === 32) {
+        heroFourArms.activatejump()
+    }
+
+    if (keyCode === 16) {
+        heroFourArms.activatecrouch()
+    }
+}
+
+function mousePressed() {
+    if (mouseIsPressed === true) {
+        if (mouseButton === LEFT) {
+            heroFourArms.activatepunch()
+        }
+    }
+
+
 }
