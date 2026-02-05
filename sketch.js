@@ -1,9 +1,24 @@
-let heroFourArms;
+// let heroFourArms;
 let statueStone;
 
 let cover = true;
+// let interagir = true;
 
-let interagir = true;
+let imagemEscolhida
+let img_x, img_y, img_w, img_h;
+
+let enemyDrone;
+let enemyDrone2;
+
+let tempo;
+let counter;
+
+let tempo2;
+let counter2;
+
+let tempo3;
+let counter3;
+let interage = true;
 
 function preload() {
     img = loadImage('./statue.png')
@@ -11,14 +26,33 @@ function preload() {
     img3 = loadImage('./FourArms_Jump.png')
     img4 = loadImage('./FourArms_Crouch.png')
     img5 = loadImage('./FourArms_Punch.png')
+    img6 = loadImage('./Drone.png')
 }
 
 function setup() {
     createCanvas(windowWidth - 1000, windowHeight - 50)
-    heroFourArms = new Hero(250, 300, img2)
     statueStone = new Stone(500, 600, 250, -450)
-}
 
+    imagemEscolhida = img2
+    img_x = 250
+    img_y = 300
+    img_w = 150
+    img_h = 300
+
+    {
+        enemyDrone = new Enemy(width, 500, random(-5, -8))
+        enemyDrone2 = new Enemy(width, 300, random(-5, -8))
+    }
+
+    tempo = millis()
+    tempo2 = millis()
+
+    counter = millis()
+    counter2 = millis()
+
+    tempo3 = millis()
+    counter3 = millis()
+}
 function draw() {
     //cenario
     background(200, 221, 227)
@@ -28,8 +62,7 @@ function draw() {
     rect(0, 600, windowWidth, height - 400)
 
     //boneco
-    heroFourArms.display()
-    //  image(img2, 250, 300, 150, 300)
+    image(imagemEscolhida, img_x, img_y, img_w, img_h)
 
     // estatua
     image(img, 400, 126, 470, -486)
@@ -39,40 +72,68 @@ function draw() {
         statueStone.display()
     }
 
-    //jump
-    heroFourArms.jump()
+    if (millis() > 3000) {
+        enemyDrone.display()
+        enemyDrone.droneMove()
+    }
 
-    //crouch
-    heroFourArms.crouch()
+    if (millis() > 6000) {
+        enemyDrone2.display()
+        enemyDrone2.droneMove()
+    }
 
-    //punch
-    heroFourArms.punch()
+    counter = millis()
+    counter2 = millis()
+    counter3 = millis()
 
-    // 3 - enimigos e morte
+    //Counter para os drones aparecerem
+    if (counter - tempo > 3000) {
+        tempo = millis();
+        enemyDrone = new Enemy(width, 500, random(-6, -8))
+    }
 
-    // 4 - talvez jogo recompensa
+    if (counter2 - tempo2 > 7000) {
+        tempo2 = millis();
+        enemyDrone2 = new Enemy(width, 300, random(-6, -8))
+    }
 
-    //console.log(interagir)
-}
-
-function keyReleased() {
-
-    if (heroFourArms.jumpinterage == true && heroFourArms.crouchinterage == true) {
-        if (keyCode === 32) {
-            heroFourArms.activatejump()
-        } else if (keyCode === 16) {
-            heroFourArms.activatecrouch()
-        } else if (keyCode === 13) {
-            heroFourArms.activatepunch()
-            statueStone.destroy()
-        }
+    if (counter3 - tempo3 > 600) {
+        //imagem original quando o cronometro atinge um valor
+        imagemEscolhida = img2
+        img_y = 300
+        img_h = 300
+        img_w = 150
+        interage = true
     }
 }
 
+function keyPressed() {
+    if (interage == true) {
+        if (keyCode === 32) {
+            imagemEscolhida = img3
+            img_y = 250
+            img_h = 250
+            tempo3 = millis();
+            interage = false
+        } else if (keyCode === 16) {
+            imagemEscolhida = img4
+            img_y = 400
+            img_h = 200
+            tempo3 = millis();
+            interage = false
+        } else if (keyCode === 13) {
+            imagemEscolhida = img5
+            img_w = 250
+            statueStone.destroy()
+            tempo3 = millis();
+            interage = false
+        }
+    }
 
-// function mouseReleased() {
-//     if (mouseButton === LEFT) {
-//         heroFourArms.activatepunch()
-//         statueStone.destroy()
-//     }
-// }
+}
+
+function death() {
+    if (widthD = img_w) {
+
+    }
+}
