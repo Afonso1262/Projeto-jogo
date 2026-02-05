@@ -132,6 +132,8 @@ function keyPressed() {
 
 }
 
+//detah
+
 function death() {
     if (widthD = img_w) {
 
