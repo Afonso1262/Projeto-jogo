@@ -149,15 +149,14 @@ class Stone {
 //-------------------------------------------------------------------------------
 
 class Enemy {
-    constructor(x, y, dir, widthD) {
+    constructor(x, y, dir) {
         this.x = x
         this.y = y
         this.dir = dir
-        this.widthD = widthD;
     }
 
     display() {
-        image(img6, this.x, this.y, this.widthD, 50)
+        image(img6, this.x, this.y, 50, 50)
     }
 
 
