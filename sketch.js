@@ -20,13 +20,15 @@ let tempo3;
 let counter3;
 let interage = true;
 
-let widthD;
 
 let distanciaBichos
 
 let playG1 = true
 let win = false
-let lose = false
+
+let xBrush;
+let yBrush;
+let corBrush;
 
 function preload() {
     img = loadImage('./statue.png')
@@ -47,8 +49,8 @@ function setup() {
     img_w = 150
     img_h = 300
 
-    enemyDrone = new Enemy(widthD, 500, -7)
-    enemyDrone2 = new Enemy(widthD, 300, -7)
+    enemyDrone = new Enemy(width, 500, -7)
+    enemyDrone2 = new Enemy(width, 300, -7)
 
     tempo = millis()
     tempo2 = millis()
@@ -58,13 +60,23 @@ function setup() {
 
     tempo3 = millis()
     counter3 = millis()
+
+    corBrush = color(255, 98, 0);
 }
 
 function draw() {
-    //cenario
-    background(200, 221, 227)
 
-    if (playG1 == true) {
+    if (playG1 == false && win == false) {
+        background(0)
+        fill(255)
+        text("GAME OVER", 450, 400)
+        textSize(50)
+        textAlign(CENTER)
+
+    }
+
+    if (playG1 == true && win == false) {
+        background(200, 221, 227)
         noStroke()
         fill(102, 81, 65)
         rect(0, 600, windowWidth, height - 400)
@@ -76,7 +88,7 @@ function draw() {
         image(img, 400, 126, 470, -486)
 
         // coberta da estatua
-        if (cover = true) {
+        if (cover == true) {
             statueStone.display()
         }
 
@@ -97,9 +109,9 @@ function draw() {
         counter3 = millis()
 
         //Counter para os drones aparecerem novamente
-        if (enemyDrone.x < -500) {
+        if (enemyDrone.x < -900) {
             counter = millis()
-            if (counter - tempo > 5000) {
+            if (counter - tempo > 7000) {
                 tempo = millis();
                 enemyDrone.x = width
             }
@@ -107,13 +119,13 @@ function draw() {
 
         if (enemyDrone2.x < -500) {
             counter2 = millis()
-            if (counter2 - tempo2 > 5000) {
+            if (counter2 - tempo2 > 7000) {
                 tempo2 = millis();
                 enemyDrone2.x = width
             }
         }
 
-        if (counter3 - tempo3 > 600) {
+        if (counter3 - tempo3 > 500) {
             //imagem original quando o cronometro atinge um valor
             imagemEscolhida = img2
             img_y = 300
@@ -121,7 +133,36 @@ function draw() {
             img_w = 150
             interage = true
         }
+
+
+        let d1 = dist(enemyDrone.x, enemyDrone.y, img_x, img_y);
+        if (d1 < 201) {
+            //console.log('perdeu')
+            playG1 = false
+        }
+
+        let d2 = dist(enemyDrone2.x, enemyDrone2.y, img_x, img_y);
+        if (d2 < 30) {
+            //console.log('perdeu')
+            playG1 = false
+        }
+
     }
+
+    if (win == true) {
+        background(255)
+        xBrush = mouseX;
+        yBrush = mouseY;
+
+        noStroke();
+        fill(corBrush);
+        ellipse(xBrush, yBrush, 10);
+    }
+}
+
+function mousePressed() {
+    win == true
+    console.log('win')
 }
 
 function keyPressed() {
@@ -146,20 +187,4 @@ function keyPressed() {
             interage = false
         }
     }
-
-    for (i = 0; i < enemyDrone.x; i++) {
-
-        if (img_x === enemyDrone.imgwidth && img_y === enemyDrone.y) {
-
-            noLoop();
-        }
-    }
-
-    for (let e of enemies) {
-        d = dist(player.x, player.y, e.x, e.y);
-        if (d < player.r + e.r) {
-            player.die();
-        }
-    }
 }
-
