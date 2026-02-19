@@ -26,9 +26,8 @@ let distanciaBichos
 let playG1 = true
 let win = false
 
-let xBrush;
-let yBrush;
-let corBrush;
+let penSize = 1;
+let penState = 0;
 
 function preload() {
     img = loadImage('./statue.png')
@@ -61,7 +60,6 @@ function setup() {
     tempo3 = millis()
     counter3 = millis()
 
-    corBrush = color(255, 98, 0);
 }
 
 function draw() {
@@ -90,7 +88,7 @@ function draw() {
         // coberta da estatua
         if (cover == true) {
             statueStone.display()
-        }
+        } else { win = true }
 
         distanciaBichos = enemyDrone2.x - enemyDrone.x
         // console.log(distanciaBichos)
@@ -150,19 +148,23 @@ function draw() {
     }
 
     if (win == true) {
-        background(255)
-        xBrush = mouseX;
-        yBrush = mouseY;
+        background(255, 251, 245)
 
-        noStroke();
-        fill(corBrush);
-        ellipse(xBrush, yBrush, 10);
+        if (mouseIsPressed) {
+            if (penState == 0) {
+                line(mouseX, mouseY, pmouseX, pmouseY);
+            }
+
+            if (penState == 1) {
+                ellipse(mouseX, mouseY, 10, 10);
+            }
+
+            if (penState == 2) {
+                line(mouseX - 5, mouseY - 5, mouseX + 5, mouseY + 5);
+                line(mouseX + 5, mouseY - 5, mouseX - 5, mouseY + 5);
+            }
+        }
     }
-}
-
-function mousePressed() {
-    win == true
-    console.log('win')
 }
 
 function keyPressed() {
@@ -187,4 +189,34 @@ function keyPressed() {
             interage = false
         }
     }
+
+    if (win == true) {
+        if (keyCode == LEFT_ARROW && penSize > 1) {
+            penSize -= 1;
+        }
+
+        if (keyCode == RIGHT_ARROW) {
+            penSize += 1;
+        }
+
+        strokeWeight(penSize);
+    }
 }
+
+function keyTyped() {
+    if (win == true) {
+
+        if (key == 'c') {
+            background(255);
+        }
+
+        if (key == 'r') {
+            stroke(255, 0, 0);
+        }
+
+        if (key == 'b') {
+            stroke(0, 0, 255);
+        }
+    }
+}
+

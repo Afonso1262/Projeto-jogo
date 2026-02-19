@@ -139,11 +139,16 @@ class Stone {
 
     destroy() {
         if (this.tempoY < 0) {
-            cover = false
+
             this.tempoY = this.tempoY + 25;
+            console.log(this.tempoY)
         }
 
+        if (this.tempoY == 0) { cover = false }
+        console.log(cover)
     }
+
+
 }
 
 //-------------------------------------------------------------------------------
