@@ -60,6 +60,8 @@ function setup() {
     tempo3 = millis()
     counter3 = millis()
 
+
+
 }
 
 function draw() {
@@ -88,7 +90,9 @@ function draw() {
         // coberta da estatua
         if (cover == true) {
             statueStone.display()
-        } else { win = true }
+        } else {
+            win = true
+        }
 
         distanciaBichos = enemyDrone2.x - enemyDrone.x
         // console.log(distanciaBichos)
@@ -145,24 +149,20 @@ function draw() {
             playG1 = false
         }
 
+        if (win == true) {
+            background(255, 251, 245)
+            stroke(0);
+        }
+
     }
 
     if (win == true) {
-        background(255, 251, 245)
-
         if (mouseIsPressed) {
             if (penState == 0) {
                 line(mouseX, mouseY, pmouseX, pmouseY);
             }
 
-            if (penState == 1) {
-                ellipse(mouseX, mouseY, 10, 10);
-            }
-
-            if (penState == 2) {
-                line(mouseX - 5, mouseY - 5, mouseX + 5, mouseY + 5);
-                line(mouseX + 5, mouseY - 5, mouseX - 5, mouseY + 5);
-            }
+            console.log('paint')
         }
     }
 }
@@ -190,6 +190,7 @@ function keyPressed() {
         }
     }
 
+    //alter the size of the pen
     if (win == true) {
         if (keyCode == LEFT_ARROW && penSize > 1) {
             penSize -= 1;
@@ -203,6 +204,7 @@ function keyPressed() {
     }
 }
 
+//alter the color of the pen
 function keyTyped() {
     if (win == true) {
 
@@ -216,6 +218,10 @@ function keyTyped() {
 
         if (key == 'b') {
             stroke(0, 0, 255);
+        }
+
+        if (key == 'q') {
+            stroke(0);
         }
     }
 }
